@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CV — Kabir Mobarez</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --night:#080f1e;--deep:#0d1b2a;--navy:#112240;--ocean:#1b3a5c;
+  --slate:#2d5f8a;--steel:#3a7baf;--sky:#5ba3cc;--foam:#a8d4e8;
+  --mist:#daeef7;--page:#edf3f8;--white:#f8fbfd;
+  --teal:#0f7473;--teal2:#14a69e;--teal3:#85d4cf;
+  --gold:#c9a84c;--gold2:#e8c96b;
+  --ink:#0a1628;--ink2:#2c3e54;--ink3:#5a7291;
+  --border:rgba(13,27,42,0.10);
+  --radius:14px;--radius-sm:8px;--radius-lg:20px;
+  --shadow:0 2px 16px rgba(13,27,42,0.08),0 1px 4px rgba(13,27,42,0.04);
+}
+html{font-size:15px;scroll-behavior:smooth}
+body{
+  font-family:'Space Grotesk',sans-serif;
+  background:var(--page);min-height:100vh;
+  padding:3rem 1rem 6rem;color:var(--ink);
+}
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.5}
+.cv-wrap{position:relative;z-index:1;max-width:920px;margin:0 auto}
+
+/* ── CV SHELL ── */
+.cv{
+  background:var(--white);border-radius:var(--radius-lg);overflow:hidden;
+  box-shadow:0 40px 100px rgba(8,15,30,0.18),0 8px 30px rgba(8,15,30,0.10);
+  border:1px solid rgba(255,255,255,0.9);
+  opacity:0;transform:translateY(40px);
+  transition:opacity 0.9s cubic-bezier(.22,.68,0,.99),transform 0.9s cubic-bezier(.22,.68,0,.99);
+}
+.cv.visible{opacity:1;transform:translateY(0)}
+
+/* ── HEADER ── */
+.cv-header{
+  background:var(--night);display:grid;
+  grid-template-columns:300px 1fr;min-height:230px;
+  position:relative;overflow:hidden;
+}
+.cv-header::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 500px 300px at 70% 120%,rgba(91,163,204,0.13) 0%,transparent 60%),
+    radial-gradient(ellipse 300px 200px at 10% -20%,rgba(20,166,158,0.10) 0%,transparent 60%);
+  pointer-events:none;
+}
+.header-accent{
+  background:linear-gradient(160deg,var(--ocean) 0%,var(--navy) 60%,var(--night) 100%);
+  padding:2.8rem 2.4rem 2.4rem;display:flex;flex-direction:column;
+  justify-content:flex-end;position:relative;overflow:hidden;
+  border-right:1px solid rgba(91,163,204,0.12);
+}
+.header-accent::before{
+  content:'';position:absolute;top:-30px;right:-30px;
+  width:120px;height:120px;border:1px solid rgba(91,163,204,0.15);border-radius:50%;
+}
+.header-accent::after{
+  content:'';position:absolute;top:-10px;right:-10px;
+  width:70px;height:70px;border:1px solid rgba(91,163,204,0.10);border-radius:50%;
+}
+.name-block{position:relative;z-index:1}
+.cv-pre{
+  font-size:9.5px;font-weight:500;letter-spacing:0.25em;
+  text-transform:uppercase;color:var(--teal2);
+  margin-bottom:0.6rem;display:flex;align-items:center;gap:8px;
+}
+.cv-pre::before{content:'';width:24px;height:1px;background:var(--teal2)}
+.cv-firstname{
+  font-family:'Instrument Serif',serif;font-style:italic;
+  font-size:clamp(2.8rem,5vw,3.6rem);font-weight:400;
+  color:#fff;line-height:0.95;letter-spacing:-0.01em;display:block;
+}
+.cv-lastname{
+  font-family:'Space Grotesk',sans-serif;font-weight:700;
+  font-size:clamp(2.8rem,5vw,3.6rem);
+  background:linear-gradient(90deg,var(--foam),var(--teal3));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  line-height:1.05;letter-spacing:-0.03em;display:block;
+}
+.cv-role{
+  margin-top:1rem;font-size:11px;font-weight:400;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:rgba(255,255,255,0.45);line-height:1.6;
+}
+.header-right{
+  padding:2.4rem 2.8rem 2.4rem 2.6rem;display:flex;
+  flex-direction:column;justify-content:space-between;
+  position:relative;z-index:1;
+}
+.header-photo-row{display:flex;justify-content:flex-end}
+.cv-photo{
+  width:82px;height:82px;border-radius:50%;object-fit:cover;
+  border:2px solid rgba(91,163,204,0.3);
+  box-shadow:0 0 0 6px rgba(91,163,204,0.08);
+  opacity:0;animation:fadeIn 1s 0.6s forwards;
+}
+@keyframes fadeIn{to{opacity:1}}
+.hinfo-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem}
+.hinfo-lbl{
+  font-size:9px;font-weight:500;letter-spacing:0.18em;
+  text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:4px;
+}
+.hinfo-val{font-size:13px;font-weight:400;color:rgba(255,255,255,0.78);line-height:1.4}
+.hinfo-val a{
+  color:var(--teal3);text-decoration:none;
+  border-bottom:1px solid rgba(133,212,207,0.3);
+  transition:color 0.2s,border-color 0.2s;
+}
+.hinfo-val a:hover{color:#fff;border-color:#fff}
+
+/* ── NAV STRIP ── */
+.cv-nav{
+  background:var(--deep);display:flex;align-items:center;
+  border-bottom:1px solid rgba(91,163,204,0.08);
+  overflow-x:auto;
+}
+.cv-nav::-webkit-scrollbar{display:none}
+.nav-item{
+  font-size:10.5px;font-weight:500;letter-spacing:0.1em;
+  text-transform:uppercase;padding:0.75rem 1.4rem;
+  color:rgba(255,255,255,0.35);cursor:pointer;white-space:nowrap;
+  border-bottom:2px solid transparent;
+  transition:color 0.2s,border-color 0.2s;
+}
+.nav-item:hover,.nav-item.active{color:var(--sky);border-bottom-color:var(--teal2)}
+
+/* ── BODY ── */
+.cv-body{display:grid;grid-template-columns:1fr 268px}
+.cv-main{padding:2.6rem 2.8rem 2.6rem 3rem;border-right:1px solid var(--border)}
+.cv-sidebar{padding:2.6rem 2rem;background:#f0f6fb}
+
+/* ── SECTIONS ── */
+.section{
+  margin-bottom:2.5rem;
+  opacity:0;transform:translateY(18px);
+  transition:opacity 0.65s ease,transform 0.65s ease;
+}
+.section.vis{opacity:1;transform:translateY(0)}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:1.2rem}
+.sec-icon{
+  width:26px;height:26px;border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--ocean),var(--slate));flex-shrink:0;
+}
+.sec-icon svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.sec-label{
+  font-size:10.5px;font-weight:600;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--ink3);
+}
+.sec-head::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+
+/* ── PROFIL ── */
+.profil-wrap{
+  background:linear-gradient(135deg,#edf5fb 0%,#e4f0f8 100%);
+  border:1px solid rgba(91,163,204,0.2);border-left:3px solid var(--steel);
+  border-radius:var(--radius);padding:1.4rem 1.6rem;position:relative;overflow:hidden;
+}
+.profil-wrap::after{
+  content:'';position:absolute;top:-20px;right:-20px;
+  width:80px;height:80px;border-radius:50%;border:1px solid rgba(91,163,204,0.12);
+}
+.profil-text{font-size:13.5px;line-height:1.95;color:var(--ink2);font-weight:400;position:relative;z-index:1; text-align: justify;}
+
+/* ── EXPERIENCE ── */
+.exp-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.2rem 1.4rem;margin-bottom:10px;
+  position:relative;overflow:hidden;
+  transition:border-color 0.25s,box-shadow 0.25s,transform 0.25s;
+}
+.exp-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:3px;background:linear-gradient(to bottom,var(--steel),var(--teal2));
+}
+.exp-card:hover{border-color:rgba(58,123,175,0.3);box-shadow:0 8px 32px rgba(13,27,42,0.1);transform:translateX(3px)}
+.exp-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px}
+.exp-title{font-size:14px;font-weight:700;color:var(--ink)}
+.exp-title a{
+  color:inherit;text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:color 0.2s,border-color 0.2s;display:inline-flex;align-items:center;gap:5px;
+}
+.exp-title a:hover{color:var(--slate);border-bottom-color:rgba(58,123,175,0.5)}
+.exp-date{
+  font-size:10.5px;font-weight:600;padding:3px 11px;border-radius:20px;
+  background:#e3eff8;color:var(--slate);flex-shrink:0;margin-left:0.8rem;white-space:nowrap;
+}
+.exp-co{font-size:12px;font-weight:500;color:var(--teal);margin-bottom:7px}
+.exp-desc{font-size:12.5px;line-height:1.75;color:var(--ink2); text-align: justify;}
+.ext-arrow{font-size:10px;color:var(--teal2);display:inline-block}
+
+/* ── SKILLS ── */
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.skill-group{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1rem 1.1rem;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+.skill-group:hover{border-color:rgba(58,123,175,0.25);box-shadow:var(--shadow)}
+.sg-label{
+  font-size:9.5px;font-weight:600;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{
+  font-size:11.5px;font-weight:500;padding:4px 12px;border-radius:30px;
+  cursor:default;transition:transform 0.15s,box-shadow 0.15s;position:relative;
+}
+.tag:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,0.1)}
+.t-dark{background:var(--navy);color:var(--foam)}
+.t-ocean{background:var(--ocean);color:#c8e6f7}
+.t-teal{background:var(--teal);color:#b5ebe9}
+.t-learn{background:#edfaf9;color:var(--teal);border:1px dashed var(--teal3)}
+.t-outline{background:transparent;border:1px solid var(--border);color:var(--ink2)}
+
+/* tooltip */
+.has-tip{position:relative}
+.tip{
+  position:absolute;bottom:calc(100% + 7px);left:50%;
+  transform:translateX(-50%) translateY(4px);
+  background:var(--deep);color:rgba(255,255,255,0.88);
+  font-size:11px;padding:5px 10px;border-radius:6px;
+  white-space:nowrap;pointer-events:none;
+  opacity:0;transition:opacity 0.2s,transform 0.2s;z-index:99;
+}
+.has-tip:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:2.2rem}
+.timeline::before{
+  content:'';position:absolute;left:8px;top:14px;bottom:14px;width:1px;
+  background:linear-gradient(to bottom,var(--steel),var(--teal2),rgba(20,166,158,0));
+}
+.tl-item{position:relative;margin-bottom:12px}
+.tl-dot{
+  position:absolute;left:-2.2rem;top:14px;
+  width:12px;height:12px;border-radius:50%;
+  background:var(--steel);border:2px solid var(--white);
+  box-shadow:0 0 0 2px var(--steel);
+  transition:background 0.2s,box-shadow 0.2s;
+}
+.tl-item:hover .tl-dot{background:var(--teal2);box-shadow:0 0 0 3px var(--teal2),0 0 14px rgba(20,166,158,0.5)}
+.tl-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1rem 1.2rem;
+  transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+}
+.tl-card:hover{border-color:rgba(58,123,175,0.3);transform:translateX(4px);box-shadow:var(--shadow)}
+.tl-row{display:flex;align-items:center;gap:10px;margin-bottom:5px}
+.tl-ico{
+  width:30px;height:30px;border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;
+}
+.ico-a{background:#e4eff8}.ico-b{background:#e0f2f1}.ico-c{background:#e8f5e9}
+.tl-name{font-size:13.5px;font-weight:700;color:var(--ink)}
+.tl-name a{
+  color:inherit;text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:color 0.2s,border-color 0.2s;display:inline-flex;align-items:center;gap:5px;
+}
+.tl-name a:hover{color:var(--slate);border-bottom-color:rgba(58,123,175,0.5)}
+.tl-sub{font-size:11.5px;color:var(--ink3);line-height:1.5}
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:10px;font-weight:600;letter-spacing:0.06em;
+  text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-top:7px;
+}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%}
+.b-active{background:#e4f3eb;color:#1a7a42}.b-active::before{background:#1a7a42}
+.b-self{background:#e3eff8;color:var(--slate)}.b-self::before{background:var(--slate)}
+
+/* ── EDUCATION ── */
+.edu-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.1rem 1.4rem;
+  display:flex;justify-content:space-between;align-items:flex-start;
+  transition:border-color 0.2s;
+}
+.edu-card:hover{border-color:rgba(58,123,175,0.25)}
+.edu-title{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.edu-sub{font-size:12px;color:var(--ink3)}
+.edu-year{
+  font-size:10.5px;font-weight:600;padding:3px 11px;border-radius:20px;
+  background:#e3eff8;color:var(--slate);flex-shrink:0;margin-left:1rem;white-space:nowrap;
+}
+
+/* ── SIDEBAR ── */
+.sb-head{display:flex;align-items:center;gap:10px;margin-bottom:1.1rem}
+.sb-icon{
+  width:22px;height:22px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--teal),var(--teal2));flex-shrink:0;
+}
+.sb-icon svg{width:11px;height:11px;stroke:#fff;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.sb-label{
+  font-size:10.5px;font-weight:600;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--ink3);
+}
+.sb-head::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+
+/* ── LANGUES ── */
+.lang-item{
+  display:flex;align-items:center;gap:11px;
+  padding:9px 0;border-bottom:1px solid var(--border);
+}
+.lang-item:last-child{border-bottom:none}
+.l-flag{font-size:18px;width:28px;text-align:center;flex-shrink:0}
+.l-info{flex:1;min-width:0}
+.l-name{font-size:12.5px;font-weight:600;color:var(--ink)}
+.l-lvl{font-size:10px;color:var(--ink3);margin-top:1px}
+.l-bar{
+  width:100%;height:3px;border-radius:3px;
+  background:rgba(58,123,175,0.12);margin-top:5px;overflow:hidden;
+}
+.l-fill{
+  height:100%;border-radius:3px;width:0;
+  transition:width 1.4s cubic-bezier(.22,.68,0,.99);
+}
+.lf-nat{background:linear-gradient(90deg,var(--ocean),var(--teal2))}
+.lf-c1{background:var(--steel)}
+.lf-b2{background:var(--teal)}
+.lf-b1{background:var(--sky)}
+.lf-a1{background:var(--foam)}
+.l-badge{
+  font-size:10px;font-weight:700;padding:2px 8px;
+  border-radius:12px;flex-shrink:0;
+}
+.lb-nat{background:linear-gradient(135deg,var(--ocean),var(--teal2));color:#fff}
+.lb-c1{background:var(--steel);color:#fff}
+.lb-b2{background:var(--teal);color:#fff}
+.lb-b1{background:#7b9aaf;color:#fff}
+.lb-a1{background:#bdd4e0;color:var(--slate)}
+
+/* ── INFO ── */
+.info-row{padding:9px 0;border-bottom:1px solid var(--border)}
+.info-row:last-child{border-bottom:none}
+.i-label{
+  font-size:9px;font-weight:600;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:3px;
+}
+.i-value{font-size:12.5px;font-weight:500;color:var(--ink)}
+.i-value a{
+  color:var(--steel);text-decoration:none;
+  border-bottom:1px solid rgba(58,123,175,0.25);
+  transition:color 0.2s,border-color 0.2s;word-break:break-all;
+}
+.i-value a:hover{color:var(--teal);border-color:var(--teal)}
+
+/* ── SOFT TAGS ── */
+.soft-tags{display:flex;flex-wrap:wrap;gap:7px}
+.soft-tag{
+  font-size:11.5px;font-weight:400;padding:5px 13px;border-radius:30px;
+  border:1px solid var(--border);color:var(--ink2);background:var(--white);
+  transition:all 0.2s;cursor:default;
+}
+.soft-tag:hover{background:var(--navy);color:var(--foam);border-color:var(--navy)}
+
+/* ── AVAILABILITY ── */
+.avail-strip{
+  display:flex;align-items:center;gap:8px;margin-top:1.5rem;
+  padding:0.8rem 1rem;
+  background:linear-gradient(135deg,#e4f3eb,#d0ede8);
+  border-radius:var(--radius-sm);border:1px solid rgba(20,166,158,0.2);
+}
+.avail-dot{
+  width:8px;height:8px;border-radius:50%;background:#1a7a42;flex-shrink:0;
+  animation:blink 1.8s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{box-shadow:0 0 0 0 rgba(26,122,66,0.5)}50%{box-shadow:0 0 0 6px rgba(26,122,66,0)}}
+.avail-text{font-size:11.5px;font-weight:600;color:#1a5c32}
+
+/* ── FOOTER ── */
+.cv-footer{
+  padding:1.1rem 3rem;background:var(--night);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:0.5rem;
+}
+.footer-l{font-size:11px;font-weight:400;color:rgba(255,255,255,0.28);letter-spacing:0.05em}
+.footer-r{
+  display:flex;align-items:center;gap:8px;
+  font-size:10.5px;font-weight:500;
+  color:rgba(255,255,255,0.38);letter-spacing:0.1em;text-transform:uppercase;
+}
+.footer-dot{width:4px;height:4px;border-radius:50%;background:var(--teal2)}
+
+@media(max-width:700px){
+  .cv-header{grid-template-columns:1fr}
+  .header-right{padding:1.8rem 2rem}
+  .cv-body{grid-template-columns:1fr}
+  .cv-main{padding:2rem 1.5rem;border-right:none;border-bottom:1px solid var(--border)}
+  .cv-sidebar{padding:2rem 1.5rem}
+  .skills-grid{grid-template-columns:1fr}
+  .cv-footer{padding:1rem 1.5rem}
+  .cv-nav{display:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="cv-wrap">
+<div class="cv" id="cv">
+
+  <!-- HEADER -->
+  <header class="cv-header">
+    <div class="header-accent">
+      <div class="name-block">
+        <div class="cv-pre">Curriculum Vitæ</div>
+        <span class="cv-firstname">Kabir</span>
+        <span class="cv-lastname">Mobarez</span>
+        <div class="cv-role" id="cv-role"></div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-photo-row">
+        <img src="photo.jpeg" alt="Kabir Mobarez" class="cv-photo"/>
+      </div>
+      <div class="hinfo-grid">
+        <div class="hinfo-item">
+          <div class="hinfo-lbl">Téléphone</div>
+          <div class="hinfo-val"><a href="tel:0772112427">077 211 24 27</a></div>
+        </div>
+        <div class="hinfo-item">
+          <div class="hinfo-lbl">E-mail</div>
+          <div class="hinfo-val"><a href="mailto:kabir.mobarez@outlook.com">kabir.mobarez@outlook.com</a></div>
+        </div>
+        <div class="hinfo-item">
+          <div class="hinfo-lbl">Domicile</div>
+          <div class="hinfo-val">Lausanne 1004, Vaud</div>
+        </div>
+        <div class="hinfo-item">
+          <div class="hinfo-lbl">Naissance</div>
+          <div class="hinfo-val">13 décembre 1995</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAV STRIP -->
+  <nav class="cv-nav">
+    <div class="nav-item active" data-sec="profil">Profil</div>
+    <div class="nav-item" data-sec="exp">Expérience</div>
+    <div class="nav-item" data-sec="skills">Compétences</div>
+    <div class="nav-item" data-sec="formation">Formation</div>
+    <div class="nav-item" data-sec="langues">Langues</div>
+  </nav>
+
+  <!-- BODY -->
+  <div class="cv-body">
+    <div class="cv-main">
+
+      <!-- PROFIL -->
+      <div class="section" id="profil">
+        <div class="sec-head">
+          <div class="sec-icon">
+            <svg viewBox="0 0 16 16"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+          </div>
+          <span class="sec-label">Profil</span>
+        </div>
+        <div class="profil-wrap">
+          <p class="profil-text">Passionné par l'informatique et le développement web, je suis en reconversion professionnelle après plusieurs années d'expérience internationale dans le journalisme et la communication. Rigoureux dans le traitement de l'information, j'ai développé une solide maîtrise des outils numériques et une grande capacité d'adaptation à des environnements variés. Autodidacte, j'ai acquis des bases pratiques en HTML et CSS à travers des projets personnels. Motivé à m'investir durablement dans le domaine informatique, je recherche une place d'apprentissage pour obtenir mon CFC.</p>
+        </div>
+      </div>
+
+      <!-- EXPÉRIENCE -->
+      <div class="section" id="exp">
+        <div class="sec-head">
+          <div class="sec-icon">
+            <svg viewBox="0 0 16 16"><rect x="1" y="4" width="14" height="10" rx="2"/><path d="M5 4V3a2 2 0 0 1 4 0v1"/></svg>
+          </div>
+          <span class="sec-label">Expérience professionnelle</span>
+        </div>
+        <div class="exp-card">
+          <div class="exp-hd">
+            <div class="exp-title">
+              <a href="https://www.etilaatroz.com/author/kabir-mobarez/" target="_blank" rel="noopener">
+                Journaliste &amp; Communicant
+                <span class="ext-arrow">↗</span>
+              </a>
+            </div>
+            <span class="exp-date">2013 – 2022</span>
+          </div>
+          <div class="exp-co">Médias &amp; Communication — International · <em style="font-style:italic;opacity:0.75">voir mes articles publiés</em></div>
+          <div class="exp-desc">Production et diffusion de contenus journalistiques dans plusieurs langues. Gestion d'outils numériques, rédaction web, maîtrise avancée des CMS et plateformes de publication. Collaboration dans des équipes multiculturelles et multilingues à l'international.</div>
+        </div>
+      </div>
+
+      <!-- COMPÉTENCES -->
+      <div class="section" id="skills">
+        <div class="sec-head">
+          <div class="sec-icon">
+            <svg viewBox="0 0 16 16"><polyline points="3,12 6,7 9,10 12,4 15,8"/></svg>
+          </div>
+          <span class="sec-label">Compétences techniques</span>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <div class="sg-label">Langages &amp; Web</div>
+            <div class="tags">
+              <span class="tag t-dark has-tip">HTML5<span class="tip">Structuration sémantique</span></span>
+              <span class="tag t-dark has-tip">CSS3<span class="tip">Mise en page &amp; animations</span></span>
+              <span class="tag t-ocean has-tip">Responsive Web Design<span class="tip">Mobile-first design</span></span>
+              <span class="tag t-learn has-tip">Python<span class="tip">En cours — freeCodeCamp</span></span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <div class="sg-label">Bureautique &amp; Outils</div>
+            <div class="tags">
+              <span class="tag t-ocean">Word</span>
+              <span class="tag t-ocean">Excel</span>
+              <span class="tag t-ocean">PowerPoint</span>
+              <span class="tag t-teal">CMS</span>
+              <span class="tag t-outline">Outlook</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORMATION -->
+      <div class="section" id="formation">
+        <div class="sec-head">
+          <div class="sec-icon">
+            <svg viewBox="0 0 16 16"><path d="M8 1L1 5l7 4 7-4-7-4z"/><path d="M1 5v5"/><path d="M4 6.5v4a4 4 0 0 0 8 0v-4"/></svg>
+          </div>
+          <span class="sec-label">Formation &amp; Apprentissage</span>
+        </div>
+        <div class="timeline">
+
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-card">
+              <div class="tl-row">
+                <div class="tl-ico ico-a">🏫</div>
+                <div>
+                  <div class="tl-name">
+                    <a href="https://dfcformation.ch/" target="_blank" rel="noopener">
+                      DFC - Démarche Formation-Conseil: Formations sur mesure <span class="ext-arrow">↗</span>
+                    </a>
+                  </div>
+                  <div class="tl-sub">Je suis des cours d'allemand, de français, de mathématiques et de comptabilité.</div>
+                </div>
+              </div>
+              <span class="badge b-active">En cours</span>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-card">
+              <div class="tl-row">
+                <div class="tl-ico ico-b">💻</div>
+                <div>
+                  <div class="tl-name">
+                    <a href="https://www.freecodecamp.org/" target="_blank" rel="noopener">
+                      freeCodeCamp — HTML / CSS <span class="ext-arrow">↗</span>
+                    </a>
+                  </div>
+                  <div class="tl-sub">Responsive Web Design — autodidacte</div>
+                </div>
+              </div>
+              <span class="badge b-self">Autodidacte</span>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-card">
+              <div class="tl-row">
+                <div class="tl-ico ico-c">🐍</div>
+                <div>
+                  <div class="tl-name">
+                    <a href="https://www.freecodecamp.org/" target="_blank" rel="noopener">
+                      freeCodeCamp — Python <span class="ext-arrow">↗</span>
+                    </a>
+                  </div>
+                  <div class="tl-sub">Scripting et programmation — en cours</div>
+                </div>
+              </div>
+              <span class="badge b-self">Autodidacte</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SCOLARITÉ -->
+      <div class="section">
+        <div class="sec-head">
+          <div class="sec-icon">
+            <svg viewBox="0 0 16 16"><rect x="1" y="2" width="14" height="12" rx="2"/><line x1="4" y1="6" x2="12" y2="6"/><line x1="4" y1="9" x2="9" y2="9"/></svg>
+          </div>
+          <span class="sec-label">Scolarité</span>
+        </div>
+        <div class="edu-card">
+          <div>
+            <div class="edu-title">Maturité / École secondaire</div>
+            <div class="edu-sub">Pato High School — Ghazni, Afghanistan</div>
+          </div>
+          <span class="edu-year">2002 – 2013</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="cv-sidebar">
+
+      <div class="section" id="langues">
+        <div class="sb-head">
+          <div class="sb-icon">
+            <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7"/><path d="M8 1c-2 3-2 11 0 14M1 8h14M2 5h12M2 11h12"/></svg>
+          </div>
+          <span class="sb-label">Langues</span>
+        </div>
+        <div class="lang-list">
+          <div class="lang-item">
+            <div class="l-flag">🇦🇫</div>
+            <div class="l-info">
+              <div class="l-name">Dari / Persan</div>
+              <div class="l-lvl">Langue maternelle</div>
+              <div class="l-bar"><div class="l-fill lf-nat" data-w="100%"></div></div>
+            </div>
+            <span class="l-badge lb-nat">Natif</span>
+          </div>
+          <div class="lang-item">
+            <div class="l-flag">🇬🇧</div>
+            <div class="l-info">
+              <div class="l-name">Anglais</div>
+              <div class="l-lvl">Courant</div>
+              <div class="l-bar"><div class="l-fill lf-c1" data-w="88%"></div></div>
+            </div>
+            <span class="l-badge lb-c1">C1</span>
+          </div>
+          <div class="lang-item">
+            <div class="l-flag">🇫🇷</div>
+            <div class="l-info">
+              <div class="l-name">Français</div>
+              <div class="l-lvl">Courant</div>
+              <div class="l-bar"><div class="l-fill lf-b2" data-w="72%"></div></div>
+            </div>
+            <span class="l-badge lb-b2">B2</span>
+          </div>
+          <div class="lang-item">
+            <div class="l-flag">🇹🇷</div>
+            <div class="l-info">
+              <div class="l-name">Turc</div>
+              <div class="l-lvl">Intermédiaire</div>
+              <div class="l-bar"><div class="l-fill lf-b1" data-w="52%"></div></div>
+            </div>
+            <span class="l-badge lb-b1">B1</span>
+          </div>
+          <div class="lang-item">
+            <div class="l-flag">🇩🇪</div>
+            <div class="l-info">
+              <div class="l-name">Allemand</div>
+              <div class="l-lvl">Débutant</div>
+              <div class="l-bar"><div class="l-fill lf-a1" data-w="18%"></div></div>
+            </div>
+            <span class="l-badge lb-a1">A1</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="sb-head">
+          <div class="sb-icon">
+            <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7"/><line x1="8" y1="7" x2="8" y2="12"/><circle cx="8" cy="5" r="0.8" fill="#fff"/></svg>
+          </div>
+          <span class="sb-label">Informations</span>
+        </div>
+        <div>
+          <div class="info-row">
+            <div class="i-label">Domicile</div>
+            <div class="i-value">Lausanne 1004, VD</div>
+          </div>
+          <div class="info-row">
+            <div class="i-label">Téléphone</div>
+            <div class="i-value"><a href="tel:0772112427">077 211 24 27</a></div>
+          </div>
+          <div class="info-row">
+            <div class="i-label">E-mail</div>
+            <div class="i-value" style="font-size:11px"><a href="mailto:kabir.mobarez@outlook.com">kabir.mobarez@outlook.com</a></div>
+          </div>
+          <div class="info-row">
+            <div class="i-label">Portfolio journalistique</div>
+            <div class="i-value" style="font-size:11px">
+              <a href="https://www.etilaatroz.com/author/kabir-mobarez/" target="_blank" rel="noopener">etilaatroz.com ↗</a>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="i-label">Naissance</div>
+            <div class="i-value">13 décembre 1995</div>
+          </div>
+          <div class="info-row" style="border:none">
+            <div class="i-label">Objectif</div>
+            <div class="i-value" style="color:var(--teal);font-size:12px;line-height:1.4">Place d'apprentissage CFC — Informatique</div>
+          </div>
+        </div>
+        <div class="avail-strip">
+          <div class="avail-dot"></div>
+          <span class="avail-text">Disponible immédiatement</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="sb-head">
+          <div class="sb-icon">
+            <svg viewBox="0 0 16 16"><path d="M8 2l1.5 3 3.5.5-2.5 2.4.6 3.6L8 10l-3.1 1.5.6-3.6L3 5.5 6.5 5z" fill="#fff" stroke="none"/></svg>
+          </div>
+          <span class="sb-label">Savoir-être</span>
+        </div>
+        <div class="soft-tags">
+          <span class="soft-tag">Autodidacte</span>
+          <span class="soft-tag">Curieux</span>
+          <span class="soft-tag">Rigoureux</span>
+          <span class="soft-tag">Adaptable</span>
+          <span class="soft-tag">Multilingue</span>
+          <span class="soft-tag">Résilient</span>
+          <span class="soft-tag">Analytique</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="cv-footer">
+    <span class="footer-l">Lausanne, 2026 &nbsp;·&nbsp; CV Kabir Mobarez</span>
+    <div class="footer-r">
+      <span>Informaticien CFC</span>
+      <div class="footer-dot"></div>
+      <span>Candidature 2026</span>
+    </div>
+  </footer>
+
+</div>
+</div>
+
+<script>
+/* PARTICLE BACKGROUND */
+(function(){
+  const c=document.getElementById('bg-canvas');
+  const ctx=c.getContext('2d');
+  let W,H,pts=[];
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight}
+  resize();
+  window.addEventListener('resize',resize);
+  for(let i=0;i<80;i++) pts.push({
+    x:Math.random()*window.innerWidth,
+    y:Math.random()*window.innerHeight,
+    vx:(Math.random()-0.5)*0.22,
+    vy:(Math.random()-0.5)*0.22,
+    r:Math.random()*1.5+0.4,
+    a:Math.random()*0.5+0.1
+  });
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0||p.x>W)p.vx*=-1;
+      if(p.y<0||p.y>H)p.vy*=-1;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(91,163,204,${p.a*0.4})`;ctx.fill();
+    });
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<120){
+          ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.strokeStyle=`rgba(91,163,204,${(1-d/120)*0.1})`;
+          ctx.lineWidth=0.5;ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* CV ENTRANCE */
+setTimeout(()=>document.getElementById('cv').classList.add('visible'),60);
+
+/* TYPING EFFECT */
+(function(){
+  const el=document.getElementById('cv-role');
+  const txt='Candidature — Apprentissage Informaticien CFC';
+  let i=0;
+  function type(){if(i<txt.length){el.textContent+=txt[i++];setTimeout(type,24)}}
+  setTimeout(type,900);
+})();
+
+/* SCROLL-REVEAL SECTIONS */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach((e,idx)=>{
+    if(e.isIntersecting) setTimeout(()=>e.target.classList.add('vis'),idx*70);
+  });
+},{threshold:0.1});
+document.querySelectorAll('.section').forEach(s=>io.observe(s));
+
+/* LANGUAGE BARS */
+const barIO=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.l-fill').forEach((b,i)=>{
+        setTimeout(()=>{b.style.width=b.dataset.w},i*160+200);
+      });
+      barIO.unobserve(e.target);
+    }
+  });
+},{threshold:0.2});
+const ls=document.getElementById('langues');
+if(ls) barIO.observe(ls);
+
+/* NAV ACTIVE */
+document.querySelectorAll('.nav-item').forEach(n=>{
+  n.addEventListener('click',()=>{
+    document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
+    n.classList.add('active');
+    const t=document.getElementById(n.dataset.sec);
+    if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+/* HIGHLIGHT ACTIVE NAV ON SCROLL */
+const secEls=[
+  {id:'profil'},{id:'exp'},{id:'skills'},{id:'formation'},{id:'langues'}
+];
+window.addEventListener('scroll',()=>{
+  let cur='profil';
+  secEls.forEach(({id})=>{
+    const el=document.getElementById(id);
+    if(el&&window.scrollY+160>=el.getBoundingClientRect().top+window.scrollY) cur=id;
+  });
+  document.querySelectorAll('.nav-item').forEach(n=>{
+    n.classList.toggle('active',n.dataset.sec===cur);
+  });
+},{passive:true});
+</script>
+</body>
+</html>
